@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<b:navBar brand="Módulo de Citas Médicas" brandHref="#">
+		<b:form>
+			<b:navbarLinks pull="right">
+				<b:navLink value="#{controllerIngreso.cedulaUsu}"></b:navLink>
+				<b:navCommandLink value="Cerrar sesión" action="#{controllerIngreso.actionSalir()}"></b:navCommandLink>
+			</b:navbarLinks>
+		</b:form>
+	</b:navBar>
+	<b:container>
+	<b:panel title="RESERVACIÓN DE CITA MÉDICA" collapsible="false" look="info">
+		<h:form>
+		    <p:panelGrid columns="2">
+		    
+		    <h:outputText value="Fecha de la cita médica: " />		
+				<p:inputText value="#{controllerCitaMedica.fechaNacimientoPaciente}" required="true">
+						<f:convertDateTime pattern="yyyy-MM-dd"/> 
+				</p:inputText> 
+				<h:outputText value="Especialidad y médico: " />
+				<p:selectOneMenu id="esp" value="#{controllerCitaMedica.sexoPaciente}">
+					<f:selectItems value="#{controllerCitaMedica.listaMedicoEspecialidad}" />
+				</p:selectOneMenu>	
+			<h:outputText value="Horario: " />
+				<p:selectOneMenu value="#{controllerCitaMedica.sexoPaciente}">
+					<f:selectItem itemLabel="Masculino" itemValue="M" />
+					<f:selectItem itemLabel="Femenino" itemValue="F" />
+				</p:selectOneMenu>
+					
+					
+			<p:commandButton value="Registrar" icon="ui-icon-disk"
+					actionListener="#{controllerCitaMedica.actionListenerRegistrarPaciente()}" action="citaMedica"></p:commandButton>
+			</p:panelGrid>
+		</h:form>
+	</b:panel>
+	</b:container>
+</h:body>
+</html>

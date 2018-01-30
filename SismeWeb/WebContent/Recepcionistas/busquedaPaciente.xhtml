@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<b:navBar brand="Módulo de Citas Médicas" brandHref="#">
+		<b:form>
+			<b:navbarLinks pull="right">
+				<b:navLink value="#{controllerIngreso.cedulaUsu}"></b:navLink>
+				<b:navCommandLink value="Cerrar sesión"
+					action="#{controllerIngreso.actionSalir()}"></b:navCommandLink>
+			</b:navbarLinks>
+		</b:form>
+	</b:navBar>
+	<b:container>
+		<b:growl id="errores"></b:growl>
+		<b:panel title="BUSQUEDA PACIENTE" collapsible="false" look="info">
+			<b:form inline="true">
+				<b:panelGrid columns="2">
+					<b:inputText id="cedula" maxlength="10" label="Ingrese la cédula:"
+						value="#{controllerCitaMedica.cedulaPaciente}" colMd="10"
+						labelColMd="2">
+						<f:validateLength minimum="10" maximum="10"></f:validateLength>
+					</b:inputText>
+					<b:commandButton value="Buscar" icon="ui-icon-key" look="primary"
+						actionListener="#{controllerCitaMedica.asignar(controllerIngreso.cedulaUsu)}"
+						action="#{controllerCitaMedica.actionBuscarPaciente()}"
+						update="errores"/>
+				</b:panelGrid>
+			</b:form>
+		</b:panel>
+	</b:container>
+</h:body>
+</html>

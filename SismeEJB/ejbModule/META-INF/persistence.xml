@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="SismeDS" transaction-type="JTA">
+		<jta-data-source>java:/SismeDS</jta-data-source>
+		<class>sisme.model.entities.CitCitasMedica</class>
+		<class>sisme.model.entities.CitHistoriasClinica</class>
+		<class>sisme.model.entities.CitHorariosMedico</class>
+		<class>sisme.model.entities.CitHora</class>
+		<class>sisme.model.entities.CitPaciente</class>
+		<class>sisme.model.entities.InvMedicamento</class>
+		<class>sisme.model.entities.InvTiposAdministracion</class>
+		<class>sisme.model.entities.InvUnidadesMedida</class>
+		<class>sisme.model.entities.RecCabRecetasMedica</class>
+		<class>sisme.model.entities.RecDetRecetasMedica</class>
+		<class>sisme.model.entities.SegRole</class>
+		<class>sisme.model.entities.SegUsuario</class>
+		<class>sisme.model.entities.ThuEspecialidade</class>
+		<class>sisme.model.entities.ThuMedico</class>
+	</persistence-unit>
+</persistence>

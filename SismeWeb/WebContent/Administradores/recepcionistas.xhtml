@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<h:form>
+	<p:menubar>
+		<p:menuitem value="Inicio" action="inicioGestionTH.xhtml" />
+		<p:menuitem value="Administradores" actionListener="#{controllerUsuario.iniciar()}" action="administradores" />
+		<p:menuitem value="Médicos" action="medicos.xhtml" />
+		<p:menuitem value="Bodegueros" actionListener="#{controllerUsuario.iniciarBodegueros()}" action="bodegueros" />
+		<p:menuitem value="Recepcionistas" actionListener="#{controllerUsuario.iniciarRecepcionistas()}" action="recepcionistas" />
+		<f:facet name="options">
+			<h:outputText style="margin-right:10px" value="#{controllerIngreso.cedulaUsu}" />
+			<p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+		</f:facet>
+	</p:menubar>
+	</h:form>
+	<p:fieldset style="margin-bottom:20px">
+		<p:messages autoUpdate="true"></p:messages>
+		<p:column headerText="NUEVO">
+			<p:commandButton icon="ui-icon-pencil" update="form2"
+				onclick="PF('dialogo1').show();"></p:commandButton>
+		</p:column>
+		<br></br>
+		<h:form id="form2">
+			<p:panel header="LISTADO DE RECEPCIONISTAS">
+				<p:dataTable value="#{controllerUsuario.lista}" var="a" id="tabla1">
+					<p:column headerText="Opciones" style="width:240px" border="0">
+						<p:commandButton icon="fa fa-fw fa-edit" value="Editar"
+							onclick="PF('dialogo2').show();"
+							actionListener="#{controllerUsuario.actionListenerCargarUsuario(a)}"
+							update="form2, form5"></p:commandButton>
+						<p:commandButton
+							action="#{controllerUsuario.actionListenerCambioEstado(a.cedulaUsu, a.estadoUsu)}"
+							value="#{controllerUsuario.mensajeEstado(a.estadoUsu)}" icon="fa fa-fw fa-times" update="@form,:form2:tabla1" />
+					</p:column>
+					<p:column headerText="CÉDULA">
+						<h:outputText value="#{a.cedulaUsu}" />
+					</p:column>
+					<p:column headerText="APELLIDOS">
+						<h:outputText value="#{a.apellidosUsu}" />
+					</p:column>
+					<p:column headerText="NOMBRES">
+						<h:outputText value="#{a.nombresUsu}" />
+					</p:column>
+					<p:column headerText="SEXO">
+						<h:outputText value="#{controllerUsuario.mensajeGenero(a.sexoUsu)}" />
+					</p:column>
+					<p:column headerText="DIRECCIÓN">
+						<h:outputText value="#{a.direccionUsu}" />
+					</p:column>
+					<p:column headerText="TELÉFONO">
+						<h:outputText value="#{a.telefonoUsu}" />
+					</p:column>
+					<p:column headerText="E-MAIL">
+						<h:outputText value="#{a.emailUsu}" />
+					</p:column>
+					<p:column headerText="CLAVE">
+						<h:outputText value="#{a.claveUsu}" />
+					</p:column>
+					<p:column headerText="ESTADO">
+						<h:outputText value="#{controllerUsuario.mensajeEstado2(a.estadoUsu)}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</p:fieldset>
+
+	<p:dialog header="Nuevo recepcionista" widgetVar="dialogo1"
+		id="dialogo1" modal="true" height="420" width="420" dynamic="false" resizable="false" closeOnEscape="true">
+		<h:form id="form4">
+			<p:panelGrid columns="2">
+				<h:outputText value="Cédula: " />
+				<p:inputText value="#{controllerUsuario.cedulaUsu}" required="true" />
+				<h:outputText value="Apellidos: " />
+				<p:inputText value="#{controllerUsuario.apellidosUsu}"
+					required="true" />
+				<h:outputText value="Nombres: " />
+				<p:inputText value="#{controllerUsuario.nombresUsu}" required="true" />
+				<h:outputText value="Sexo: " />
+				<p:selectOneMenu value="#{controllerUsuario.sexoUsu}">
+					<f:selectItem itemLabel="Masculino" itemValue="M" />
+					<f:selectItem itemLabel="Femenino" itemValue="F" />
+				</p:selectOneMenu>
+				<h:outputText value="Dirección: " />
+				<p:inputText value="#{controllerUsuario.direccionUsu}"
+					required="true" />
+				<h:outputText value="Teléfono: " />
+				<p:inputText value="#{controllerUsuario.telefonoUsu}" />
+				<h:outputText value="E-mail: " />
+				<p:inputText value="#{controllerUsuario.emailUsu}" />
+				<h:outputText value="Clave: " />
+				<p:password value="#{controllerUsuario.claveUsu}" required="true" />
+				<h:outputText value="Estado: " />
+				<p:selectOneMenu value="#{controllerUsuario.estadoUsu}">
+					<f:selectItem itemLabel="Activo" itemValue="true" />
+					<f:selectItem itemLabel="Inactivo" itemValue="false" />
+				</p:selectOneMenu>
+				<p:commandButton value="Guardar" update="@form,:form2:tabla1"
+					actionListener="#{controllerUsuario.actionListenerAgregarUsuario(5)}"></p:commandButton>
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+	<p:dialog header="Editar recepcionista" widgetVar="dialogo2"
+		id="dialogo2" modal="true" height="420" width="420" dynamic="false" resizable="false" closeOnEscape="true">
+		<h:form id="form5">
+			<p:panelGrid columns="2">
+				<h:outputText value="Cédula: " />
+				<p:inputText value="#{controllerUsuario.cedulaUsu}" disabled="true" required="true" />
+				<h:outputText value="Apellidos: " />
+				<p:inputText value="#{controllerUsuario.apellidosUsu}"
+					required="true" />
+				<h:outputText value="Nombres: " />
+				<p:inputText value="#{controllerUsuario.nombresUsu}" required="true" />
+				<h:outputText value="Sexo: " />
+				<p:selectOneMenu value="#{controllerUsuario.sexoUsu}">
+					<f:selectItem itemLabel="Masculino" itemValue="M" />
+					<f:selectItem itemLabel="Femenino" itemValue="F" />
+				</p:selectOneMenu>
+				<h:outputText value="Dirección: " />
+				<p:inputText value="#{controllerUsuario.direccionUsu}"
+					required="true" />
+				<h:outputText value="Teléfono: " />
+				<p:inputText value="#{controllerUsuario.telefonoUsu}" />
+				<h:outputText value="E-mail: " />
+				<p:inputText value="#{controllerUsuario.emailUsu}" />
+				<h:outputText value="Clave: " />
+				<p:password value="#{controllerUsuario.claveUsu}" required="true" />
+				<h:outputText value="Estado: " />
+				<p:selectOneMenu value="#{controllerUsuario.estadoUsu}">
+					<f:selectItem itemLabel="Activo" itemValue="true" />
+					<f:selectItem itemLabel="Inactivo" itemValue="false" />
+				</p:selectOneMenu>
+				<p:commandButton value="Guardar" update="@form,:form2:tabla1"
+					actionListener="#{controllerUsuario.actionListenerEditarUsuario()}"></p:commandButton>
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+</body>
+</html>

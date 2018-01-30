@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<b:navBar brand="Módulo de Gestión de Talento Humano" brandHref="#">
+		<h:form>
+			<b:navbarLinks pull="right">
+				<b:navLink value="#{controllerIngreso.cedulaUsu}"></b:navLink>
+				<b:navCommandLink value="Cerrar sesión" action="#{controllerIngreso.actionSalir()}"></b:navCommandLink>
+			</b:navbarLinks>
+		</h:form>
+	</b:navBar>
+	<b:container fluid="true">
+		<b:panel title="GESTION TH" look="info" collapsible="false">
+			<h:form>
+				<b:commandButton value="Inicio" icon="ui-icon-disk"
+					action="#{controllerUsuario.iniciarAdministradores()}" look="primary">
+				</b:commandButton>
+			</h:form>
+		</b:panel>
+	</b:container>
+</h:body>
+</html>

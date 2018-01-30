@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<b:navBar brand="Módulo de Recetas Médicas" brandHref="#">
+		<b:navbarLinks>
+			<b:navLink value="Listado de Medicamentos" href="#"></b:navLink>
+			<b:navLink value="Listado de Recetas Médicas" href="#"></b:navLink>
+		</b:navbarLinks>
+		<h:form>
+			<b:navbarLinks pull="right">
+				<b:navLink value="#{controllerIngreso.cedulaUsu}"></b:navLink>
+				<b:navCommandLink value="Cerrar sesión" action="#{controllerIngreso.actionSalir()}"></b:navCommandLink>
+			</b:navbarLinks>
+		</h:form>
+	</b:navBar>
+
+	<b:container fluid="true">
+		<b:panel title="Sus Citas para hoy" look="info">
+			<h:form>
+				<b:dataTable value="sdasdasd" var="car">
+					<b:dataTableColumn value="sdfsdf" />
+					<b:dataTableColumn value="sdfsdfsd" />
+					<b:dataTableColumn value="sadasd" />
+					<b:dataTableColumn value="sdasdasd" order="asc" />
+					<b:dataTableColumn value="sasdasd" />
+					<b:dataTableColumn value="ssfasda"
+						label="Engine Power (hp)" />
+				</b:dataTable>
+			</h:form>
+		</b:panel>
+	</b:container>
+</h:body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<p:panel header="REGISTRO DE PACIENTE">
+		<p:messages autoUpdate="true"></p:messages>
+		<h:form>
+			<p:panelGrid columns="4">
+				<h:outputText value="Cédula: " />
+				<p:inputText value="#{controllerCitaMedica.cedulaPaciente}" required="true" disabled="true"/>
+				<h:outputText value="N° H. Clínica: " />
+				<p:inputText value="#{controllerCitaMedica.idHistoriaClinica}" required="true" disabled="true"/>
+				<h:outputText value="Nombres: " />
+				<p:inputText value="#{controllerCitaMedica.nombresPaciente}" required="true" />
+				<h:outputText value="Apellidos: " />
+				<p:inputText value="#{controllerCitaMedica.apellidosPaciente}" required="true" />
+				<h:outputText value="Nacionalidad: " />
+				<p:inputText value="#{controllerCitaMedica.nacionalidadPaciente}" required="true" />
+				<h:outputText value="Étnia: " />
+				<p:inputText value="#{controllerCitaMedica.etniaPaciente}" required="true" />
+				<h:outputText value="Lugar nacimiento: " />
+				<p:inputText value="#{controllerCitaMedica.lugarNacimientoPaciente}" required="true" />
+
+				
+				<h:outputText value="Fecha nacimiento: " />		
+				<p:inputText value="#{controllerCitaMedica.fechaNacimientoPaciente}" required="true">
+						<f:convertDateTime pattern="yyyy-MM-dd"/> 
+				</p:inputText>
+				
+	
+				<h:outputText value="Dirección: " />
+				<p:inputText value="#{controllerCitaMedica.direccionPaciente}" required="true" />
+				<h:outputText value="Teléfono: " />
+				<p:inputText value="#{controllerCitaMedica.telefonoPaciente}" required="true" />
+				<h:outputText value="E-mail: " />
+				<p:inputText value="#{controllerCitaMedica.emailPaciente}" required="true" />
+				<h:outputText value="Sexo: " />
+				<p:selectOneMenu value="#{controllerCitaMedica.sexoPaciente}">
+					<f:selectItem itemLabel="Masculino" itemValue="M" />
+					<f:selectItem itemLabel="Femenino" itemValue="F" />
+				</p:selectOneMenu>	
+				<h:outputText value="Estado: " />
+				<p:selectOneMenu value="#{controllerCitaMedica.estadoPaciente}">
+					<f:selectItem itemLabel="Activo" itemValue="true" />
+					<f:selectItem itemLabel="Inactivo" itemValue="false" />
+				</p:selectOneMenu>
+				
+				
+				
+				
+			</p:panelGrid>
+			<p:panelGrid columns="2"> 
+			<h:outputText value="Fecha de ingreso: " />		
+				<p:inputText value="#{controllerCitaMedica.fechaIngreso}" required="true">
+						<f:convertDateTime pattern="yyyy-MM-dd"/> 
+				</p:inputText>
+				
+				
+				<h:outputText value="Nombres y apellidos registrador" />	
+				<p:inputText value="#{controllerCitaMedica.nombresRegistrador}" required="true" disabled="true" />
+				<h:outputText value="Antecedentes Médicos: " />		
+				<p:inputText value="#{controllerCitaMedica.antecedentesMedicos}" required="true" />
+				
+				
+				<p:commandButton value="Registrar" icon="ui-icon-disk"
+					actionListener="#{controllerCitaMedica.actionListenerRegistrarPaciente()}" action="citaMedica"></p:commandButton>
+			</p:panelGrid>
+		</h:form>
+	</p:panel>
+</body>
+</html>

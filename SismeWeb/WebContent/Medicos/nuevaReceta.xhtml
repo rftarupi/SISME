@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<b:navBar brand="Recetas Médicas" brandHref="#">
+		<h:form>
+			<b:navbarLinks pull="right">
+				<b:navLink value="#{controllerIngreso.cedulaUsu}"></b:navLink>
+				<b:navCommandLink value="Cerrar sesión"
+					action="#{controllerIngreso.actionSalir()}"></b:navCommandLink>
+			</b:navbarLinks>
+		</h:form>
+	</b:navBar>
+
+	<b:container fluid="true">
+		<b:row>
+			<b:column>
+				<h1 style="text-align: center;">NUEVA RECETA MÉDICA</h1>
+			</b:column>
+		</b:row>
+		<b:row>
+			<b:column span="8" offset="2">
+				<b:panel title="Datos Personales del Paciente" look="info" collapsible="false">
+					<b:form horizontal="true">
+						<b:panelGrid columns="2">
+							<b:inputText value="1" label="Código:" readonly="true"
+								colMd="8" labelColMd="4" />
+							<b:inputText value="jdfssd" label="Fecha:" readonly="true"
+								colMd="8" labelColMd="4" />
+							<b:selectOneMenu value="jdfssd" label="Paciente:"
+								readonly="true" colMd="8" labelColMd="4">
+								
+							</b:selectOneMenu>
+						</b:panelGrid>
+					</b:form>
+				</b:panel>
+			</b:column>
+		</b:row>
+		<b:row>
+			<b:column span="8" offset="2">
+				<b:panel title="Detalles de Receta" look="info" collapsible="false">
+					<b:form horizontal="true">
+						<b:panelGrid columns="2">
+							<b:inputText value="jdfssd" label="Apellidos Regis.:"
+								readonly="true" colMd="8" labelColMd="4" />
+							<b:inputText value="jdfssd" label="Nombres Resis.:"
+								readonly="true" colMd="8" labelColMd="4" />
+						</b:panelGrid>
+						<b:panelGrid columns="1" colMd="12">
+								<b:inputTextarea value="jdfssd" label="Antescedentes Médicos:"
+									readonly="true" />
+							</b:panelGrid>
+					</b:form>
+				</b:panel>
+			</b:column>
+		</b:row>
+	</b:container>
+</h:body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<b:navBar brand="Módulo de Gestión de Talento Humano" brandHref="#">
+		<b:form>
+			<b:navbarLinks pull="right">
+				<b:navLink value="#{controllerIngreso.cedulaUsu}"></b:navLink>
+				<b:navCommandLink value="Cerrar sesión" action="#{controllerIngreso.actionSalir()}"></b:navCommandLink>
+			</b:navbarLinks>
+		</b:form>
+	</b:navBar>
+	<b:container fluid="true">
+	<b:growl id="errores" globalOnly="true" severity="info,warn" allowDismiss="true"></b:growl>
+		<b:panel title="LISTADO DE ADMINISTRADORES" look="info"
+			collapsible="false">
+			<b:row>
+				<b:column>
+					<b:button icon="ui-icon-pencil" value="Nuevo Administrador"
+						look="success"
+						onclick="$('.modalNuevoAdmin').modal()"></b:button>
+					<br />
+				</b:column>
+			</b:row>
+			<br />
+			<b:row>
+				<b:column>
+					<b:form id="frmListado">
+						<b:dataTable value="#{controllerUsuario.lista}" var="a"
+							id="tblListado" fixedHeader="true">
+							<b:dataTableColumn label="Opciones" id="tblListado">
+								<b:commandButton icon="pencil" value="Editar"
+									oncomplete="$('.modalEditarUsu').modal('show')"
+									actionListener="#{controllerUsuario.actionListenerCargarUsuario(a)}"
+									update="frmEditar" look="info" style="width:100px;" />&nbsp;
+								<b:commandButton icon="remove" look="danger"
+									rendered="#{a.estadoUsu}"
+									actionListener="#{controllerUsuario.actionListenerCambioEstado(a.cedulaUsu, a.estadoUsu)}"
+									value="#{controllerUsuario.mensajeEstado(a.estadoUsu)}"
+									update="@form,errores" style="width:100px;" />
+								<b:commandButton icon="remove" look="success"
+									rendered="#{!a.estadoUsu}"
+									action="#{controllerUsuario.actionListenerCambioEstado(a.cedulaUsu, a.estadoUsu)}"
+									value="#{controllerUsuario.mensajeEstado(a.estadoUsu)}"
+									update="@form,errores" style="width:100px;" />
+							</b:dataTableColumn>
+							<b:dataTableColumn label="Cédula" value="#{a.cedulaUsu}" />
+							<b:dataTableColumn label="Apellidos" value="#{a.apellidosUsu}" />
+							<b:dataTableColumn label="Nombres" value="#{a.nombresUsu}" />
+							<b:dataTableColumn label="Sexo"
+								value="#{controllerUsuario.mensajeGenero(a.sexoUsu)}" />
+							<b:dataTableColumn label="Dirección" value="#{a.direccionUsu}" />
+							<b:dataTableColumn label="Teléfono" value="#{a.telefonoUsu}" />
+							<b:dataTableColumn label="E-Mail" value="#{a.emailUsu}" />
+							<b:dataTableColumn label="Estado"
+								value="#{controllerUsuario.mensajeEstado2(a.estadoUsu)}" />
+						</b:dataTable>
+					</b:form>
+				</b:column>
+			</b:row>
+		</b:panel>
+	</b:container>
+
+	<b:modal title="Nuevo Administrador" id="nuevoAdmin"
+		styleClass="modalNuevoAdmin">
+		<b:form id="frmNuevoAdmin" horizontal="true">
+			<b:inputText value="#{controllerUsuario.cedulaUsu}" label="Cédula:"
+				colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese su Cédula" />
+			<b:inputText value="#{controllerUsuario.apellidosUsu}"
+				label="Apellidos:" colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese sus apellidos" />
+			<b:inputText value="#{controllerUsuario.nombresUsu}" label="Nombres:"
+				colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese sus nombres" />
+			<b:selectOneMenu value="#{controllerUsuario.sexoUsu}" label="Sexo:"
+				colMd="8" labelColMd="3" required="true"
+				requiredMessage="Especifique su sexo">
+				<f:selectItem itemLabel="Masculino" itemValue="M" />
+				<f:selectItem itemLabel="Femenino" itemValue="F" />
+			</b:selectOneMenu>
+			<b:inputText value="#{controllerUsuario.direccionUsu}"
+				label="Dirección:" colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese su dirección" />
+			<b:inputText value="#{controllerUsuario.telefonoUsu}"
+				label="Teléfono:" colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese su Teléfono" />
+			<b:inputText value="#{controllerUsuario.emailUsu}" label="E-Mail:"
+				colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese su E-Mail" />
+			<b:inputSecret value="#{controllerUsuario.claveUsu}" label="Clave:"
+				colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese una clave" />
+			<b:selectOneMenu value="#{controllerUsuario.estadoUsu}" label="Estado:"
+				colMd="8" labelColMd="3">
+				<f:selectItem itemLabel="Activo" itemValue="true" />
+				<f:selectItem itemLabel="Inactivo" itemValue="false" />
+			</b:selectOneMenu>
+			<b:commandButton value="Guardar"
+				look="success" actionListener="#{controllerUsuario.actionListenerAgregarUsuario(4)}"
+				oncomplete="$('#nuevoAdmin').modal('hide');" update="frmListado:tblListado,errores">
+			</b:commandButton>&nbsp;
+			<b:button value="Cerrar" dismiss="modal"
+				look="danger" />
+		</b:form>
+	</b:modal>
+
+	<b:modal title="Editar Administrador" id="editarAdmin"
+		styleClass="modalEditarUsu">
+		<b:form id="frmEditar" horizontal="true">
+			<b:inputText value="#{controllerUsuario.cedulaUsu}" label="Cédula:"
+				colMd="8" labelColMd="3" required="true" disabled="true"
+				requiredMessage="Ingrese su Cédula" />
+			<b:inputText value="#{controllerUsuario.apellidosUsu}"
+				label="Apellidos:" colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese sus apellidos" />
+			<b:inputText value="#{controllerUsuario.nombresUsu}" label="Nombres:"
+				colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese sus nombres" />
+			<b:selectOneMenu value="#{controllerUsuario.sexoUsu}" label="Sexo:"
+				colMd="8" labelColMd="3" required="true"
+				requiredMessage="Especifique su sexo">
+				<f:selectItem itemLabel="Masculino" itemValue="M" />
+				<f:selectItem itemLabel="Femenino" itemValue="F" />
+			</b:selectOneMenu>
+			<b:inputText value="#{controllerUsuario.direccionUsu}"
+				label="Dirección:" colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese su dirección" />
+			<b:inputText value="#{controllerUsuario.telefonoUsu}"
+				label="Teléfono:" colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese su Teléfono" />
+			<b:inputText value="#{controllerUsuario.emailUsu}" label="E-Mail:"
+				colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese su E-Mail" />
+			<b:inputSecret value="#{controllerUsuario.claveUsu}" label="Clave:"
+				colMd="8" labelColMd="3" required="true"
+				requiredMessage="Ingrese una clave" />
+			<b:selectOneMenu value="#{controllerUsuario.estadoUsu}" label="Estado"
+				colMd="8" labelColMd="3">
+				<f:selectItem itemLabel="Activo" itemValue="true" />
+				<f:selectItem itemLabel="Inactivo" itemValue="false" />
+			</b:selectOneMenu>
+			<b:commandButton value="Guardar" look="success"
+				actionListener="#{controllerUsuario.actionListenerEditarUsuario()}"
+				oncomplete="$('#editarAdmin').modal('hide');" update="frmListado:tblListado,errores">
+			</b:commandButton>&nbsp;
+			<b:button value="Cerrar" dismiss="modal" look="danger" />
+		</b:form>
+	</b:modal>
+</h:body>
+</html>
